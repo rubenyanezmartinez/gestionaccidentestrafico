@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html th:replace="~{fragmentos/plantilla::pagina(~{this::title}, ~{this::body})}" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Nuevo Vehiculo</title>
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="col text-left">
+            <h2>Nuevo Vehiculo</h2>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col text-center">
+            <form th:action="@{/vehiculos/__${conductor.dni}__}" th:object="${vehiculo}" method="post" id="vehiculo-form">
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">Matrícula</label>
+                    </div>
+                    <div class="col text-left">
+                        <input required class="form-control" th:style="${#fields.hasErrors('matricula')} ? 'border-color: red'" th:field="*{matricula}" type="text" size="10" maxlength="7" />
+                        <p th:if="${#fields.hasErrors('matricula')}" style="color: red" th:text="${#fields.errors('matricula')}"></p>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">Año Matriculación</label>
+                    </div>
+                    <div class="col text-left">
+                        <input required class="form-control" th:style="${#fields.hasErrors('anho_matriculacion')} ? 'border-color: red'" th:field="*{anho_matriculacion}" type="number" min="1900" max="9999" maxlength="4" />
+                        <p th:if="${#fields.hasErrors('anho_matriculacion')}" style="color: red" th:text="${#fields.errors('anho_matriculacion')}"></p>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">Tipo</label>
+                    </div>
+                    <div class="col text-left">
+                        <input required class="form-control" th:style="${#fields.hasErrors('tipo')} ? 'border-color: red'" th:field="*{tipo}" type="text" size="10" maxlength="50" />
+                        <p th:if="${#fields.hasErrors('tipo')}" style="color: red" th:text="${#fields.errors('tipo')}"></p>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-right">
+                        <button class="btn" style="background-color: #5b9bd5; color: white" type="submit" name="anadirVehiculo">Añadir Vehiculo</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <div class="col text-left">
+            <a class="btn btn-light" th:href="@{/vehiculos/listado/__${conductor.dni}__}">Atrás</a>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

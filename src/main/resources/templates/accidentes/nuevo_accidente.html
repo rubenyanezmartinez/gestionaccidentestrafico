@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html th:replace="~{fragmentos/plantilla::pagina(~{this::title}, ~{this::body})}" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Nuevo Accidente</title>
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="col text-left">
+            <h2>Nuevo Accidente</h2>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col text-center">
+            <form th:action="@{/accidentes}" th:object="${accidente}" method="post" id="accidentes-form">
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">Maniobra</label>
+                    </div>
+                    <div class="col text-left">
+                        <select class="form-control" th:field="*{maniobra}">
+                            <option value="ADELANTAMIENTO">Adelantamiento</option>
+                            <option value="GIRO">Giro</option>
+                            <option value="OTRO">Otro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">Gravedad</label>
+                    </div>
+                    <div class="col text-left">
+                        <select class="form-control" th:field="*{gravedad}">
+                            <option value="LEVE">Leve</option>
+                            <option value="MODERADA">Moderada</option>
+                            <option value="GRAVE">Grave</option>
+                        </select>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">Fecha</label>
+                    </div>
+                    <div class="col text-left">
+                        <input required class="form-control" th:field="*{fecha}" type="date"/>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">Carretera</label>
+                    </div>
+                    <div class="col text-left">
+                        <input required class="form-control" style="margin-bottom: 1%;" placeholder="Nombre" th:field="*{carretera.nombre}" type="text" size="10" maxlength="50"/>
+                        <p th:if="${#fields.hasErrors('carretera.nombre')}" style="color: red" th:text="${#fields.errors('carretera.nombre')}"></p>
+                        <input required class="form-control" placeholder="Km" th:field="*{carretera.kilometro}" type="number" min="1" max="9999" maxlength="4"/>
+                        <p th:if="${#fields.hasErrors('carretera.kilometro')}" style="color: red" th:text="${#fields.errors('carretera.kilometro')}"></p>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">Conductor responsable</label>
+                    </div>
+                    <div class="col text-left">
+                        <select class="form-control" th:field="*{conductor}">
+                            <option th:each="c : ${conductores}" th:text="${c.nombre + ', ' + c.dni}" th:value="${c.dni}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-right">
+                        <button class="btn" style="background-color: #5b9bd5; color: white" type="submit" name="anadirAccidente">Añadir Accidente</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <div class="col text-left">
+            <a class="btn btn-light" th:href="@{../accidentes}">Atrás</a>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

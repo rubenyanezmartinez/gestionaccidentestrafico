@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<th:block th:fragment="cabecera">
+    <nav class="navbar navbar-expand-md fixed-top" style="background-color: #5b9bd5;">
+        <div class="collapse navbar-collapse" id="navbars">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" style="color: white" th:href="@{/accidentes}">ACCIDENTES</a></li>
+                <li class="nav-item"><a class="nav-link" style="color: white">|</a></li>
+                <li class="nav-item"><a class="nav-link" style="color: white" th:href="@{/serviciosemergencia}">SERVICIOS DE EMERGENCIA</a></li>
+                <li class="nav-item"><a class="nav-link" style="color: white">|</a></li>
+                <li class="nav-item"><a class="nav-link" style="color: white" th:href="@{/conductores}">CONDUCTORES Y VEHÍCULOS</a></li>
+            </ul>
+        </div>
+    </nav>
+</th:block>
+</body>
+
+</html>

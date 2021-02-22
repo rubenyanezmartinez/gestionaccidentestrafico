@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html th:replace="~{fragmentos/plantilla::pagina(~{this::title}, ~{this::body})}" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Ver Detalle Accidente</title>
+</head>
+
+<body>
+
+<div class="row">
+    <div class="col text-left">
+        <h2 th:text="${'Vista en detalle de ' + accidente.id}"></h2>
+    </div>
+</div>
+
+<hr/>
+
+<table id="datosBasicos" class="table table-striped">
+    <thead style="background-color: #5b9bd5; color: white">
+    <tr>
+        <th>Id</th>
+        <th>Maniobra</th>
+        <th>Gravedad</th>
+        <th>Fecha</th>
+        <th>Carretera</th>
+        <th>Conductor</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${accidente.id}" />
+        <td th:text="${accidente.maniobra}" />
+        <td th:text="${accidente.gravedad}" />
+        <td th:text="${#dates.format(accidente.fecha, 'dd-MMM-yyyy')}" />
+        <td th:text="${accidente.carretera.nombre + ', ' + accidente.carretera.kilometro + ' km'}"/>
+        <td th:text="${accidente.conductor.nombre + ', ' + accidente.conductor.dni}" />
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+
+<div class="row">
+    <div class="col">
+        <h4>Factores:</h4>
+        <table id="factores" class="table table-striped">
+            <thead style="background-color: #5b9bd5; color: white">
+            <tr>
+                <th>Id</th>
+                <th>Tipo</th>
+                <th>Nombre</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="factor : ${factores}">
+                <td th:text="${factor.id}" />
+                <td th:text="${factor.tipoFactor.nombre}" />
+                <td th:text="${factor.valor}" />
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        <h4>Servicios de emergencia:</h4>
+        <table id="servicios" class="table table-striped">
+            <thead style="background-color: #5b9bd5; color: white">
+                <tr>
+                    <th>Id</th>
+                    <th>Tipo</th>
+                    <th>Localidad</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:each="servicio : ${servicios}">
+                <td th:text="${servicio.id}" />
+                <td th:text="${servicio.tipo}" />
+                <td th:text="${servicio.localidad}" />
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<br/>
+
+<div class="row">
+    <div class="col text-left">
+        <a class="btn btn-light" th:href="@{/accidentes}">Atrás</a>
+    </div>
+</div>
+
+</body>
+
+</html>

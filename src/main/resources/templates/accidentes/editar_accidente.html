@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html th:replace="~{fragmentos/plantilla::pagina(~{this::title}, ~{this::body})}" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Ver Detalle Accidente</title>
+</head>
+
+<body>
+
+<div class="row">
+    <div class="col text-left">
+        <h2 th:text="${'Vista en detalle de ' + accidente.id}"></h2>
+    </div>
+</div>
+
+<hr/>
+
+<div class="row">
+    <div class="col text-center">
+        <form th:action="@{/accidentes/__${accidente.id}__/editar}" th:object="${accidente}" method="post" id="accidente-editar-form">
+
+            <div class="row">
+                <div class="col text-left">
+                    <label class="control-label">Maniobra</label>
+                </div>
+                <div class="col text-left">
+                    <div th:switch="*{maniobra}">
+                        <select class="form-control" th:case="*{maniobra.ADELANTAMIENTO}" th:field="*{maniobra}">
+                            <option value="ADELANTAMIENTO">Adelantamiento</option>
+                            <option value="GIRO">Giro</option>
+                            <option value="OTRO">Otro</option>
+                        </select>
+
+                        <select class="form-control" th:case="*{maniobra.GIRO}" th:field="*{maniobra}">
+                            <option value="GIRO">Giro</option>
+                            <option value="ADELANTAMIENTO">Adelantamiento</option>
+                            <option value="OTRO">Otro</option>
+                        </select>
+
+                        <select class="form-control" th:case="*{maniobra.OTRO}" th:field="*{maniobra}">
+                            <option value="OTRO">Otro</option>
+                            <<option value="ADELANTAMIENTO">Adelantamiento</option>
+                            <option value="GIRO">Giro</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+
+            <div class="row">
+                <div class="col text-left">
+                    <label class="control-label">Gravedad</label>
+                </div>
+                <div class="col text-left">
+                    <div th:switch="*{gravedad}">
+                        <select class="form-control" th:case="*{gravedad.LEVE}" th:field="*{gravedad}">
+                            <option value="LEVE">Leve</option>
+                            <option value="MODERADA">Moderada</option>
+                            <option value="GRAVE">Grave</option>
+                        </select>
+
+                        <select class="form-control" th:case="*{gravedad.MODERADA}" th:field="*{gravedad}">
+                            <option value="MODERADA">Moderada</option>
+                            <option value="LEVE">Leve</option>
+                            <option value="GRAVE">Grave</option>
+                        </select>
+
+                        <select class="form-control" th:case="*{gravedad.GRAVE}" th:field="*{gravedad}">
+                            <option value="GRAVE">Grave</option>
+                            <option value="LEVE">Leve</option>
+                            <option value="MODERADA">Moderada</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+
+            <div class="row">
+                <div class="col text-right">
+                    <button class="btn" style="background-color: #5b9bd5; color: white" type="submit" name="editarAccidente">Guardar Cambios</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<br/>
+
+<div class="row">
+    <div class="col">
+        <h4>Factores:</h4>
+        <table id="factores" class="table table-striped">
+            <thead style="background-color: #5b9bd5; color: white">
+            <tr>
+                <th>Id</th>
+                <th>Tipo</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="factor : ${factores}">
+                <td th:text="${factor.getFactor().id}" />
+                <td th:text="${factor.getFactor().tipoFactor.nombre}" />
+                <td th:text="${factor.getFactor().valor}" />
+                <td>
+                    <a class="btn btn-danger" th:href="@{/accidentes/__${accidente.id}__/eliminarFactor/__${factor.getFactor().id}__}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        <h4>Servicios de emergencia:</h4>
+        <table id="servicios" class="table table-striped">
+            <thead style="background-color: #5b9bd5; color: white">
+            <tr>
+                <th>Id</th>
+                <th>Tipo</th>
+                <th>Localidad</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="servicio : ${servicios}">
+                <td th:text="${servicio.getServicioEmergencia().id}" />
+                <td th:text="${servicio.getServicioEmergencia().tipo}" />
+                <td th:text="${servicio.getServicioEmergencia().localidad}" />
+                <td>
+                    <a class="btn btn-danger" th:href="@{/accidentes/__${accidente.id}__/eliminarServicio/__${servicio.getServicioEmergencia().id}__}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<br/>
+
+<div class="row">
+    <div class="col text-left">
+        <a class="btn btn-light" th:href="@{/accidentes}">Atrás</a>
+    </div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+    <html th:replace="~{fragmentos/plantilla::pagina(~{this::title}, ~{this::body})}" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Editar Conductor</title>
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="col text-left">
+            <h2>Editar Conductor</h2>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col text-center">
+            <form th:action="@{/conductores/editar/__${conductor.dni}__}" th:object="${conductor}" method="post" id="servicioemergencia-form">
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">DNI</label>
+                    </div>
+                    <div class="col text-left">
+                        <input disabled class="form-control" th:style="${#fields.hasErrors('dni')} ? 'border-color: red'" th:field="*{dni}" size="10" maxlength="9" />
+                        <p th:if="${#fields.hasErrors('dni')}" style="color: red" th:text="${#fields.errors('dni')}"></p>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">Nombre</label>
+                    </div>
+                    <div class="col text-left">
+                        <input required class="form-control" th:style="${#fields.hasErrors('nombre')} ? 'border-color: red'" th:field="*{nombre}" type="text" size="10" maxlength="50" />
+                        <p th:if="${#fields.hasErrors('nombre')}" style="color: red" th:text="${#fields.errors('nombre')}"></p>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">Edad</label>
+                    </div>
+                    <div class="col text-left">
+                        <input required class="form-control" th:style="${#fields.hasErrors('edad')} ? 'border-color: red'" th:field="*{edad}" type="number" min="14" max="100" maxlength="2" />
+                        <p th:if="${#fields.hasErrors('edad')}" style="color: red" th:text="${#fields.errors('edad')}"></p>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">Género</label>
+                    </div>
+                    <div class="col text-left">
+                        <div th:switch="*{genero}">
+                            <select class="form-control" th:case="*{genero.MASCULINO}" th:field="*{genero}">
+                                <option value="MASCULINO">Masculino</option>
+                                <option value="FEMENINO">Femenino</option>
+                                <option value="OTRO">Otro</option>
+                            </select>
+
+                            <select class="form-control" th:case="*{genero.FEMENINO}" th:field="*{genero}">
+                                <option value="FEMENINO">Femenino</option>
+                                <option value="MASCULINO">Masculino</option>
+                                <option value="OTRO">Otro</option>
+                            </select>
+
+                            <select class="form-control" th:case="*{genero.OTRO}" th:field="*{genero}">
+                                <option value="OTRO">Otro</option>
+                                <option value="MASCULINO">Masculino</option>
+                                <option value="FEMENINO">Femenino</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-right">
+                        <button class="btn" style="background-color: #5b9bd5; color: white" type="submit" name="editarConductor">Guardar Cambios</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <div class="col text-left">
+            <a class="btn btn-light" th:href="@{/conductores}">Atrás</a>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

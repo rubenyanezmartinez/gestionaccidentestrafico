@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+    <html th:replace="~{fragmentos/plantilla::pagina(~{this::title}, ~{this::body})}" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Editar Servicio de Emergencia</title>
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="col text-left">
+            <h2>Editar Servicio de Emergencia</h2>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col text-center">
+            <form th:action="@{/serviciosemergencia/__${servicioEmergencia.id}__/editar}" th:object="${servicioEmergencia}" method="post" id="servicioemergencia-form">
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">Tipo Servicio</label>
+                    </div>
+                    <div class="col text-left">
+                        <div th:switch="*{tipo}">
+                            <select class="form-control" th:case="*{tipo.POLICIA}" th:field="*{tipo}">
+                                <option value="POLICIA">Policia</option>
+                                <option value="AMBULANCIA">Ambulancia</option>
+                                <option value="BOMBEROS">Bomberos</option>
+                                <option value="OTRO">Otro</option>
+                            </select>
+
+                            <select class="form-control" th:case="*{tipo.AMBULANCIA}" th:field="*{tipo}">
+                                <option value="AMBULANCIA">Ambulancia</option>
+                                <option value="POLICIA">Policia</option>
+                                <option value="BOMBEROS">Bomberos</option>
+                                <option value="OTRO">Otro</option>
+                            </select>
+
+                            <select class="form-control" th:case="*{tipo.BOMBEROS}" th:field="*{tipo}">
+                                <option value="BOMBEROS">Bomberos</option>
+                                <option value="POLICIA">Policia</option>
+                                <option value="AMBULANCIA">Ambulancia</option>
+                                <option value="OTRO">Otro</option>
+                            </select>
+
+                            <select class="form-control" th:case="*{tipo.OTRO}" th:field="*{tipo}">
+                                <option value="OTRO">Otro</option>
+                                <option value="POLICIA">Policia</option>
+                                <option value="AMBULANCIA">Ambulancia</option>
+                                <option value="BOMBEROS">Bomberos</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-left">
+                        <label class="control-label">Localidad</label>
+                    </div>
+                    <div class="col text-left">
+                        <input required class="form-control" th:style="${#fields.hasErrors('localidad')} ? 'border-color: red'" th:field="*{localidad}" size="10" maxlength="50" />
+                        <p th:if="${#fields.hasErrors('localidad')}" style="color: red" th:text="${#fields.errors('localidad')}"></p>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col text-right">
+                        <button class="btn" style="background-color: #5b9bd5; color: white" type="submit" name="editarServicio">Guardar Cambios</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <div class="col text-left">
+            <a class="btn btn-light" th:href="@{/serviciosemergencia}">Atrás</a>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
